@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\DTO\CartItemDTO;
 use App\Services\PaymentStrategies\CreditCardInstallmentStrategy;
 use App\Services\PaymentStrategies\CreditCardOneTimeStrategy;
 use App\Services\PaymentStrategies\PixPaymentStrategy;
@@ -37,17 +38,18 @@ class CartService
             }
         }
 
-        throw new DomainException("Método de pagamento ou contagem de parcelas inválida para cálculo.");
+        throw new DomainException("Método de pagamento ou número de parcelas inválidas para cálculo.");
     }
 
+    /**
+     * @param CartItemDTO[] $items
+     */
     private function calculateSubtotal(array $items): float
     {
         $running_subtotal = 0.0;
 
         foreach ($items as $item) {
-            $unit_price = $item['price'] ?? 0.0;
-            $item_quantity = $item['quantity'] ?? 1;
-            $running_subtotal += $unit_price * $item_quantity;
+            $running_subtotal += $item->getLineTotal();
         }
 
         return $running_subtotal;
