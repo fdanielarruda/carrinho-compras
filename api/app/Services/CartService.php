@@ -2,11 +2,27 @@
 
 namespace App\Services;
 
-use App\Enums\CartPaymentMethod;
-use Exception;
+use App\Services\PaymentStrategies\CreditCardInstallmentStrategy;
+use App\Services\PaymentStrategies\CreditCardOneTimeStrategy;
+use App\Services\PaymentStrategies\PixPaymentStrategy;
+use DomainException;
 
 class CartService
 {
+    protected array $paymentStrategies;
+
+    public function __construct(
+        PixPaymentStrategy $pixStrategy,
+        CreditCardOneTimeStrategy $oneTimeStrategy,
+        CreditCardInstallmentStrategy $installmentStrategy
+    ) {
+        $this->paymentStrategies = [
+            $pixStrategy,
+            $oneTimeStrategy,
+            $installmentStrategy,
+        ];
+    }
+
     public function calculate(array $data): float
     {
         $order_items = $data['items'];
@@ -15,22 +31,13 @@ class CartService
 
         $subtotal_amount = $this->calculateSubtotal($order_items);
 
-        $pix_discount_rate = 0.10;
-        $interest_rate_per_installment = 0.01;
-
-        if ($this->isPixPayment($payment_method_value)) {
-            return round($subtotal_amount * (1 - $pix_discount_rate), 2);
+        foreach ($this->paymentStrategies as $strategy) {
+            if ($strategy->supports($payment_method_value, $number_of_installments)) {
+                return $strategy->calculate($subtotal_amount, $data);
+            }
         }
 
-        if ($this->isCreditCardOneTimePayment($payment_method_value, $number_of_installments)) {
-            return round($subtotal_amount * (1 - $pix_discount_rate), 2);
-        }
-
-        if ($this->isCreditCardInstallmentPayment($payment_method_value, $number_of_installments)) {
-            return round($subtotal_amount * pow((1 + $interest_rate_per_installment), $number_of_installments), 2);
-        }
-
-        throw new Exception("Invalid payment method or installment count for calculation.");
+        throw new DomainException("Método de pagamento ou contagem de parcelas inválida para cálculo.");
     }
 
     private function calculateSubtotal(array $items): float
@@ -44,23 +51,5 @@ class CartService
         }
 
         return $running_subtotal;
-    }
-
-    private function isPixPayment(string $payment_method): bool
-    {
-        return $payment_method === CartPaymentMethod::METHOD_PIX->value;
-    }
-
-    private function isCreditCardOneTimePayment(string $payment_method, int $number_of_installments): bool
-    {
-        return $payment_method === CartPaymentMethod::METHOD_CREDIT_CARD->value
-            && $number_of_installments === 1;
-    }
-
-    private function isCreditCardInstallmentPayment(string $payment_method, int $number_of_installments): bool
-    {
-        return $payment_method === CartPaymentMethod::METHOD_CREDIT_CARD->value
-            && $number_of_installments >= 2
-            && $number_of_installments <= 12;
     }
 }
