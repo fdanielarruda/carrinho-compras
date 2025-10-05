@@ -4,7 +4,7 @@ namespace App\Services\PaymentStrategies;
 
 use App\Enums\CartPaymentMethod;
 
-class CreditCardOneTimeStrategy implements PaymentStrategy
+class CreditCardOneTimeStrategy implements PaymentStrategyInterface
 {
     private const DISCOUNT_RATE = 0.10;
 

@@ -4,7 +4,7 @@ namespace App\Services\PaymentStrategies;
 
 use App\Enums\CartPaymentMethod;
 
-class CreditCardInstallmentStrategy implements PaymentStrategy
+class CreditCardInstallmentStrategy implements PaymentStrategyInterface
 {
     private const INTEREST_RATE_PER_INSTALLMENT = 0.01;
     private const MAX_INSTALLMENTS = 12;

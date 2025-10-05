@@ -4,7 +4,7 @@ namespace App\Services\PaymentStrategies;
 
 use App\Enums\CartPaymentMethod;
 
-class PixPaymentStrategy implements PaymentStrategy
+class PixPaymentStrategy implements PaymentStrategyInterface
 {
     private const DISCOUNT_RATE = 0.10;
 
