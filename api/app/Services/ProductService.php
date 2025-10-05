@@ -11,9 +11,9 @@ class ProductService
     {
         return Product::all()
             ->map(fn(Product $product) => new ProductDTO(
-                id: $product->id,
-                name: $product->name,
-                price: $product->price
+                id: (int) $product->id,
+                name: (string) $product->name,
+                unit_price: (float) $product->unit_price
             ))
             ->toArray();
     }
