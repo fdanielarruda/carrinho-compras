@@ -26,16 +26,8 @@ class CartCalculateRequest extends FormRequest
             'items' => ['required', 'array', 'min:1'],
             'items.*.price' => ['required', 'numeric', 'min:0.01'],
             'items.*.quantity' => ['required', 'integer', 'min:1'],
-            'payment_method' => [
-                'required',
-                'integer',
-                Rule::in([1, 2])
-            ],
-            'installments' => [
-                'required_if:payment_method,2',
-                'integer',
-                Rule::when($this->payment_method == 2, ['min:1', 'max:12'])
-            ],
+            'payment_method' => ['required', 'integer', Rule::in([1, 2])],
+            'installments' => ['required_if:payment_method,2', 'nullable', 'integer', 'min:1', 'max:12'],
         ];
     }
 }
