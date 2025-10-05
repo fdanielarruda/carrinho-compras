@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\DTO\CartCalculationDTO;
 use App\DTO\CartItemDTO;
 use App\Services\PaymentStrategies\CreditCardInstallmentStrategy;
 use App\Services\PaymentStrategies\CreditCardOneTimeStrategy;
@@ -24,17 +25,15 @@ class CartService
         ];
     }
 
-    public function calculate(array $data): float
+    public function calculate(CartCalculationDTO $data): float
     {
-        $order_items = $data['items'];
-        $payment_method_value = $data['payment_method'];
-        $number_of_installments = $data['installments'];
-
-        $subtotal_amount = $this->calculateSubtotal($order_items);
+        $subtotal = $data->getSubtotal();
 
         foreach ($this->paymentStrategies as $strategy) {
-            if ($strategy->supports($payment_method_value, $number_of_installments)) {
-                return $strategy->calculate($subtotal_amount, $data);
+            if ($strategy->supports($data->payment_method, $data->installments ?? 1)) {
+                return $strategy->calculate($subtotal, [
+                    'installments' => $data->installments ?? 1
+                ]);
             }
         }
 
