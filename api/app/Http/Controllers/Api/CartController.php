@@ -16,19 +16,19 @@ class CartController extends Controller
 
     public function calculate(CartCalculateRequest $request): JsonResponse
     {
-        $data = $request->validated();
+        $payload = $request->validated();
 
-        $data['items'] = collect($data['items'])
+        $payload['items'] = collect($payload['items'])
             ->map(fn(array $item) => new CartItemDTO(
                 price: (float) $item['price'],
                 quantity: (int) $item['quantity']
             ))
             ->all();
 
-        $total_value = $this->service->calculate($data);
+        $total_value = $this->service->calculate($payload);
 
         return response()->json([
-            'total_value' => $total_value
+            'total_value' => compact('total_value')
         ]);
     }
 }

@@ -2,11 +2,11 @@
 
 namespace App\DTO;
 
-class CartItemDTO
+final class CartItemDTO
 {
     public function __construct(
-        public float $price,
-        public int $quantity,
+        public readonly float $price,
+        public readonly int $quantity,
     ) {}
 
     public function getLineTotal(): float

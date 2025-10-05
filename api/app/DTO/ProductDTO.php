@@ -2,11 +2,11 @@
 
 namespace App\DTO;
 
-class ProductDTO
+final class ProductDTO
 {
     public function __construct(
-        public int $id,
-        public string $name,
-        public float $unit_price,
+        public readonly int $id,
+        public readonly string $name,
+        public readonly float $unit_price,
     ) {}
 }
