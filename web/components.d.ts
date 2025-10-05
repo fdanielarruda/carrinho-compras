@@ -8,6 +8,12 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
-    HelloWorld: typeof import('./src/components/HelloWorld.vue')['default']
+    CartButton: typeof import('./src/components/CartButton.vue')['default']
+    Header: typeof import('./src/components/Header.vue')['default']
+    PaginationControls: typeof import('./src/components/PaginationControls.vue')['default']
+    ProductCard: typeof import('./src/components/ProductCard.vue')['default']
+    RouterLink: typeof import('vue-router')['RouterLink']
+    RouterView: typeof import('vue-router')['RouterView']
+    SearchToolbar: typeof import('./src/components/SearchToolbar.vue')['default']
   }
 }
