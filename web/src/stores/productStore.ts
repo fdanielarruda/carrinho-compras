@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia';
-import axios from 'axios';
 import type { Product, ProductStoreState } from '@/types/Product';
+import api from '@/services/api';
 
 const PRODUCTS_PER_PAGE = 12;
 
@@ -83,8 +83,7 @@ export const useProductStore = defineStore('product', {
       this.error = '';
 
       try {
-        const API_BASE_URL = 'http://localhost:8000/api';
-        const response = await axios.get(`${API_BASE_URL}/products`);
+        const response = await api.get('/products');
 
         this.allProducts = response.data.products;
         this.currentPage = 1;

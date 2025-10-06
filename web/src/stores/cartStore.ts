@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia';
 import type { Product, CartState } from '@/types/Product';
-import axios from 'axios';
+import api from '@/services/api';
 
 export const useCartStore = defineStore('cart', {
   persist: true,
@@ -77,8 +77,7 @@ export const useCartStore = defineStore('cart', {
           installments: this.installments,
         };
 
-        const API_BASE_URL = 'http://localhost:8000/api';
-        const response = await axios.post(`${API_BASE_URL}/cart-calculate`, payload);
+        const response = await api.post('/cart-calculate', payload);
 
         this.totalPrice = response.data.total_value; 
       } catch (error) {
