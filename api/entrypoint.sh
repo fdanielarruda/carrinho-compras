@@ -6,6 +6,9 @@ chown -R www-data:www-data /var/www/html/bootstrap/cache
 chmod -R 775 /var/www/html/storage
 chmod -R 775 /var/www/html/bootstrap/cache
 
+echo "Instalando dependências do Composer..."
+composer install --no-dev --prefer-dist --optimize-autoloader
+
 echo "Aguardando o serviço de banco de dados..."
 timeout=30
 while ! nc -z db 3306; do

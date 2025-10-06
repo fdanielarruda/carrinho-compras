@@ -69,7 +69,7 @@ APP_WEB_PORT=5173
 Execute o comando:
 
 ```bash
-docker compose up --build
+docker compose up --build -d
 ```
 
 Isso iniciará todos os serviços:
