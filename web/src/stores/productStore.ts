@@ -91,7 +91,7 @@ export const useProductStore = defineStore('product', {
         this.extractUniqueCategories();
 
       } catch (err) {
-        this.error = 'Falha ao carregar todos os produtos.';
+        this.error = 'Falha ao carregar os produtos.';
         console.error(err);
       } finally {
         this.isLoading = false;
