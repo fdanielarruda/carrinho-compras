@@ -39,21 +39,19 @@ watch(
     <CartHeader />
 
     <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5">
-      <div class="lg:grid lg:grid-cols-3 lg:gap-8">
+      <div v-if="cartStore.items.length === 0" class="text-center text-gray-500 p-8 bg-white rounded-2xl shadow-sm">
+        O carrinho está vazio
+      </div>
 
+      <div class="lg:grid lg:grid-cols-3 lg:gap-8" v-else>
         <div class="lg:col-span-2">
           <CartItem v-for="item in cartStore.items" :key="item.id"
-            :item="{ ...item, price: item.unit_price * item.quantity }"
-            @update:quantity="updateItemQuantity" @remove="removeItem" />
-
-          <div v-if="cartStore.items.length === 0" class="text-center text-gray-500 p-8 bg-white rounded-2xl shadow-sm">
-            O carrinho está vazio
-          </div>
+            :item="{ ...item, price: item.unit_price * item.quantity }" @update:quantity="updateItemQuantity"
+            @remove="removeItem" />
         </div>
 
         <CartSummary :subtotal="subtotal" :total-price="cartStore.totalPrice" :is-loading="cartStore.isLoading"
           @update:payment="cartStore.setPaymentOptions" />
-
       </div>
     </main>
   </div>
