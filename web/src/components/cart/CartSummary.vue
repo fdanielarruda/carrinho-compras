@@ -4,7 +4,7 @@ import PaymentSelector from './PaymentSelector.vue';
 import { formatCurrencyBRL } from '@/utils/formatters';
 import { LockClosedIcon } from '@heroicons/vue/24/outline';
 
-defineProps<{
+const props = defineProps<{
   subtotal: number;
   totalPrice: number | null;
   isLoading: boolean;
@@ -20,7 +20,9 @@ computed(() => {
 });
 
 const isDiscountActive = computed(() => {
-  return selectedPayment.value === 'Pix' || (selectedPayment.value === 'Credit Card' && selectedInstallment.value === 1);
+  return props.subtotal > 0
+    && (selectedPayment.value === 'Pix' || (selectedPayment.value === 'Credit Card')
+    && selectedInstallment.value === 1);
 });
 
 watch([selectedPayment, selectedInstallment], ([newPayment, newInstallment]) => {
