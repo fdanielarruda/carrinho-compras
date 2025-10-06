@@ -3,7 +3,7 @@ import { ShoppingCartIcon, MagnifyingGlassIcon } from '@heroicons/vue/24/outline
 </script>
 
 <template>
-  <header class="bg-white sticky top-0 z-50">
+  <header class="bg-gray-50 sticky top-0 z-50">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-between">
 
       <div class="flex-grow hidden lg:block pr-8">
@@ -17,7 +17,7 @@ import { ShoppingCartIcon, MagnifyingGlassIcon } from '@heroicons/vue/24/outline
       </div>
 
       <div class="flex items-center space-x-4">
-        <router-link to="/cart"
+        <router-link to="/carrinho"
           class="relative flex items-center space-x-2 p-2.5 text-gray-900 bg-white border rounded-2xl hover:bg-gray-100 transition-colors duration-150"
           style="border-color: #E6E9EE;">
           <ShoppingCartIcon class="w-5 h-5" />
