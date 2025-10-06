@@ -1,14 +1,27 @@
 <script setup lang="ts">
 import { ref, watch } from 'vue';
-import { ShoppingCartIcon, MagnifyingGlassIcon } from '@heroicons/vue/24/outline';
+import { ShoppingCartIcon, MagnifyingGlassIcon, AdjustmentsHorizontalIcon } from '@heroicons/vue/24/outline';
 import { useProductStore } from '@/stores/productStore';
 import { useCartStore } from '@/stores/cartStore';
+import CategoryFilterDropdown from './CategoryFilterDropdown.vue';
 
 const productStore = useProductStore();
 const cartStore = useCartStore();
 
 const localSearchTerm = ref(productStore.searchTerm);
 let searchTimeout: number | undefined = undefined;
+
+const showCategoryFilter = ref(false);
+
+const toggleCategoryFilter = () => {
+  showCategoryFilter.value = !showCategoryFilter.value;
+};
+
+const handleFilterSelection = (filterValues: string[]) => {
+  productStore.setCategoryFilters(filterValues);
+  console.log('Filtros de Categoria Aplicados:', filterValues);
+  showCategoryFilter.value = false;
+};
 
 watch(localSearchTerm, (newTerm) => {
   clearTimeout(searchTimeout);
@@ -32,7 +45,17 @@ watch(localSearchTerm, (newTerm) => {
         </div>
       </div>
 
-      <div class="flex items-center space-x-4">
+      <div class="relative flex items-center space-x-4">
+        <button @click="toggleCategoryFilter"
+          class="flex items-center space-x-2 p-2.5 text-gray-900 bg-white border rounded-2xl hover:bg-gray-100 transition-colors duration-150"
+          :class="{ 'ring-2 ring-indigo-500': showCategoryFilter }" style="border-color: #E6E9EE;">
+          <AdjustmentsHorizontalIcon class="w-5 h-5" />
+        </button>
+
+        <CategoryFilterDropdown v-if="showCategoryFilter" @filter-selected="handleFilterSelection"
+          @close="showCategoryFilter = false" />
+      </div>
+      <div class="flex items-center space-x-4 ml-4">
         <router-link to="/carrinho"
           class="relative flex items-center space-x-2 p-2.5 text-gray-900 bg-white border rounded-2xl hover:bg-gray-100 transition-colors duration-150"
           style="border-color: #E6E9EE;">

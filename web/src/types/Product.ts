@@ -3,6 +3,7 @@ export interface Product {
     name: string;
     unit_price: number;
     image: string;
+    categories: string[] | null;
 }
 
 export interface CartItem extends Product {
@@ -15,4 +16,14 @@ export interface CartState {
     installments: number;
     totalPrice: number | null;
     isLoading: boolean;
+}
+
+export interface ProductStoreState {
+    allProducts: Product[]; 
+    isLoading: boolean; 
+    error: string;
+    searchTerm: string; 
+    currentPage: number;
+    availableCategories: string[] | null,
+    selectedCategoryFilters: string[]; 
 }

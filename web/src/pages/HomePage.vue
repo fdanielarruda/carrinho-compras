@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { onMounted } from 'vue';
-import { useProductStore } from '@/stores/productStore.ts';
+import { useProductStore } from '@/stores/productStore';
 import ProductHeader from '@/components/product/ProductHeader.vue';
 import ProductCard from '@/components/product/ProductCard.vue';
 import BasePagination from '@/components/common/BasePagination.vue';
@@ -20,7 +20,12 @@ const handlePageChange = (page: number) => {
   <div class="min-h-screen bg-gray-50 pt-3">
     <ProductHeader />
 
-    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-2">
+
+      <div v-if="productStore.searchTerm || productStore.selectedCategoryFilters.length > 0"
+        class="px-4 text-gray-600 rounded-lg text-sm font-sm italic">
+        {{ productStore.filterDescription }}
+      </div>
 
       <div v-if="productStore.isLoading" class="text-center py-10 text-gray-600">
         Carregando produtos...
@@ -34,7 +39,7 @@ const handlePageChange = (page: number) => {
         Nenhum produto encontrado.
       </div>
 
-      <div v-else class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+      <div v-else class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-3">
         <ProductCard v-for="product in productStore.products" :key="product.id" :product="product" />
       </div>
 
