@@ -1,9 +1,12 @@
 <script setup lang="ts">
+import { ref, watch } from 'vue';
 import { ShoppingCartIcon, MagnifyingGlassIcon } from '@heroicons/vue/24/outline';
 import { useProductStore } from '@/stores/productStore';
-import { ref, watch } from 'vue';
+import { useCartStore } from '@/stores/cartStore';
 
 const productStore = useProductStore();
+const cartStore = useCartStore();
+
 const localSearchTerm = ref(productStore.searchTerm);
 let searchTimeout: number | undefined = undefined;
 
@@ -35,8 +38,10 @@ watch(localSearchTerm, (newTerm) => {
           style="border-color: #E6E9EE;">
           <ShoppingCartIcon class="w-5 h-5" />
 
-          <span
-            class="absolute top-0 right-0 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-white transform translate-x-1/2 -translate-y-1/2 bg-black rounded-full">3</span>
+          <span v-if="cartStore.totalItemsCount > 0"
+            class="absolute top-0 right-0 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-white transform translate-x-1/2 -translate-y-1/2 bg-black rounded-full">
+            {{ cartStore.totalItemsCount }}
+          </span>
         </router-link>
       </div>
     </div>
