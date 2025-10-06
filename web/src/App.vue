@@ -1,9 +1,9 @@
-<script setup lang="ts"></script>
-
 <template>
-  <div class="min-h-screen flex items-center justify-center bg-blue-500 text-white text-3xl font-bold">
-    Tailwind funcionando! 💨
-  </div>
+  <RouterView />
 </template>
 
-<style scoped></style>
+<script setup lang="ts">
+</script>
+
+<style>
+</style>
