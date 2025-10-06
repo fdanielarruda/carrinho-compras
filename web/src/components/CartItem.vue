@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import { defineProps, defineEmits } from 'vue';
-import { MinusIcon, PlusIcon } from '@heroicons/vue/24/outline'; // Removendo TrashIcon pois não está mais sendo usado na forma como estava.
+import { MinusIcon, PlusIcon } from '@heroicons/vue/24/outline';
 
 interface Product {
   id: number;

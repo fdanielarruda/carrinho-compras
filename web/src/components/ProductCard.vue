@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { defineProps } from 'vue';
 import { PlusIcon } from '@heroicons/vue/24/outline';
 
 defineProps({
