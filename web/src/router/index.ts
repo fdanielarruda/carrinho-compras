@@ -1,5 +1,5 @@
-import CartView from '@/pages/CartView.vue'
-import HomeView from '@/pages/HomeView.vue'
+import CartPage from '@/pages/CartPage.vue'
+import HomePage from '@/pages/HomePage.vue'
 import { createRouter, createWebHistory } from 'vue-router'
 
 const router = createRouter({
@@ -8,12 +8,12 @@ const router = createRouter({
     {
       path: '/',
       name: 'home',
-      component: HomeView
+      component: HomePage
     },
     {
       path: '/carrinho',
       name: 'cart',
-      component: CartView
+      component: CartPage
     }
   ],
 })
