@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { defineEmits, ref, onMounted } from 'vue';
 import { useProductStore } from '@/stores/productStore';
+import { XMarkIcon } from '@heroicons/vue/24/outline';
 
 const productStore = useProductStore();
 
@@ -28,12 +29,16 @@ onMounted(() => {
 
 <template>
   <div
-    class="absolute right-0 top-10 w-96 bg-white rounded-lg shadow-xl py-2 z-50 origin-top-right ring-1 ring-black ring-opacity-5"
-    @mouseleave="$emit('close')">
+    class="absolute right-0 top-10 md:w-96 w-max bg-white rounded-lg shadow-xl py-2 z-50 origin-top-right ring-1 ring-black ring-opacity-5">
 
-    <p class="px-4 py-2 text-sm font-semibold text-gray-700 border-b">Filtrar por categorias</p>
+    <p class="px-4 py-2 text-sm font-semibold text-gray-700 border-b flex justify-between items-center">
+      Filtrar por categorias
+      <button @click="$emit('close')" class="md:hidden text-gray-500 hover:text-gray-700">
+        <XMarkIcon class="ml-2 h-5 w-5" />
+      </button>
+    </p>
 
-    <div class="p-2 max-h-60 overflow-y-auto grid grid-cols-2 gap-x-2">
+    <div class="p-2 max-h-60 overflow-y-auto grid grid-cols-1 sm:grid-cols-2 gap-x-2">
       <label v-for="category in availableCategories" :key="category"
         class="flex items-center cursor-pointer px-2 py-1.5 rounded-md hover:bg-gray-100 transition-colors duration-100">
 

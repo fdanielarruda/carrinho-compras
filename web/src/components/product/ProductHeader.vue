@@ -52,10 +52,15 @@ watch(localSearchTerm, (newTerm) => {
           <AdjustmentsHorizontalIcon class="w-5 h-5" />
         </button>
 
+        <span v-if="productStore.selectedCategoryFilters.length > 0"
+          class="absolute top-0 right-0 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-white transform translate-x-1/2 -translate-y-1/2 bg-black rounded-full">
+          {{ productStore.selectedCategoryFilters.length }}
+        </span>
+
         <CategoryFilterDropdown v-if="showCategoryFilter" @filter-selected="handleFilterSelection"
           @close="showCategoryFilter = false" />
       </div>
-      <div class="flex items-center space-x-4 ml-4">
+      <div class="flex items-center space-x-4 ml-3">
         <router-link to="/carrinho"
           class="relative flex items-center space-x-2 p-2.5 text-gray-900 bg-white border rounded-2xl hover:bg-gray-100 transition-colors duration-150"
           style="border-color: #E6E9EE;">
