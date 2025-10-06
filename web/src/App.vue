@@ -1,13 +1,9 @@
+<script setup lang="ts"></script>
+
 <template>
-  <v-app>
-    <Header />
-    <v-main>
-      <RouterView />
-    </v-main>
-  </v-app>
+  <div class="min-h-screen flex items-center justify-center bg-blue-500 text-white text-3xl font-bold">
+    Tailwind funcionando! 💨
+  </div>
 </template>
 
-<script setup lang="ts">
-import { RouterView } from 'vue-router';
-import Header from '@/components/Header.vue';
-</script>
+<style scoped></style>

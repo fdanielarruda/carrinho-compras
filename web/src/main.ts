@@ -1,13 +1,10 @@
-import { createApp } from 'vue';
+import { createApp } from 'vue'
+import App from './App.vue'
+import router from './router'
+import './assets/main.css'
 
-import { registerPlugins } from '@/plugins';
+const app = createApp(App)
 
-import App from './App.vue';
+app.use(router)
 
-import 'unfonts.css';
-
-const app = createApp(App);
-
-registerPlugins(app);
-
-app.mount('#app');
+app.mount('#app')
