@@ -23,7 +23,7 @@ class ProductsApiTest extends TestCase
 
         $response->assertJsonStructure([
             'products' => [
-                '*' => ['id', 'name', 'unit_price']
+                '*' => ['id', 'name', 'unit_price', 'image']
             ]
         ]);
 
@@ -32,6 +32,7 @@ class ProductsApiTest extends TestCase
                 'id' => $product->id,
                 'name' => $product->name,
                 'unit_price' => (float) $product->unit_price,
+                'image' => $product->image
             ]);
         }
     }

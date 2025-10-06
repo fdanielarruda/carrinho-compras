@@ -8,6 +8,7 @@ final class ProductDTO
         public readonly int $id,
         public readonly string $name,
         public readonly float $unit_price,
+        public readonly ?string $image,
     ) {}
 
     public function jsonSerialize(): array
@@ -16,6 +17,7 @@ final class ProductDTO
             'id' => $this->id,
             'name' => $this->name,
             'unit_price' => $this->unit_price,
+            'image' => $this->image ?? null,
         ];
     }
 }

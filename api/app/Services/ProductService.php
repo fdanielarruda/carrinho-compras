@@ -23,7 +23,8 @@ class ProductService
             ->through(fn(Product $product) => new ProductDTO(
                 id: (int) $product->id,
                 name: (string) $product->name,
-                unit_price: (float) $product->unit_price
+                unit_price: (float) $product->unit_price,
+                image: (string) $product->image ?? null
             ));
     }
 }
