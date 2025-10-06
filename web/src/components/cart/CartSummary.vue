@@ -2,6 +2,7 @@
 import { ref, watch, computed } from 'vue';
 import PaymentSelector from './PaymentSelector.vue';
 import { formatCurrencyBRL } from '@/utils/formatters';
+import { LockClosedIcon } from '@heroicons/vue/24/outline';
 
 defineProps<{
   subtotal: number;
@@ -36,7 +37,7 @@ watch([selectedPayment, selectedInstallment], ([newPayment, newInstallment]) => 
     <div class="bg-white p-6 rounded-2xl border border-gray-100">
       <div class="flex justify-between items-center pb-4 border-b border-gray-200">
         <span class="text-md font-semibold text-gray-600">Subtotal</span>
-        <span class="text-lg font-bold text-gray-900">{{ formatCurrencyBRL(subtotal) }}</span>
+        <span class="text-lg font-bold text-gray-900">R$ {{ formatCurrencyBRL(subtotal) }}</span>
       </div>
 
       <PaymentSelector v-model:selected-payment="selectedPayment" v-model:selected-installment="selectedInstallment" />
@@ -45,25 +46,32 @@ watch([selectedPayment, selectedInstallment], ([newPayment, newInstallment]) => 
         <div class="flex justify-between items-center mb-4">
           <div class="flex items-center">
             <span class="text-xl font-bold text-gray-800">Total</span>
-
-            <span v-if="isDiscountActive"
-              class="ml-2 px-2 py-1 text-xs font-bold text-green-700 bg-green-100 rounded-lg">
-              10% OFF
-            </span>
           </div>
 
           <div class="flex flex-col items-end">
-            <span v-if="isDiscountActive" class="text-sm text-gray-400 line-through">
-              {{ formatCurrencyBRL(subtotal) }}
-            </span>
+            <div v-if="isDiscountActive" class="flex items-center mb-1">
+              <span class="px-2 py-1 text-xs font-bold text-green-700 bg-green-100 rounded-lg">
+                10% OFF
+              </span>
+
+              <span class="ml-2 text-sm text-gray-400 line-through">
+                R$ {{ formatCurrencyBRL(subtotal) }}
+              </span>
+            </div>
 
             <span class="text-2xl font-bold text-gray-900">
               <span v-if="isLoading">...</span>
-              <span v-else>{{ formatCurrencyBRL(totalPrice) }}</span>
+              <span v-else>R$ {{ formatCurrencyBRL(totalPrice) }}</span>
             </span>
           </div>
         </div>
 
+        <button
+          class="w-full py-3 bg-blue-600 text-white font-bold rounded-xl flex items-center justify-center hover:bg-blue-700 transition-colors duration-150"
+          :disabled="isLoading || totalPrice === null">
+          <LockClosedIcon class="w-5 h-5 mr-2" />
+          {{ isLoading ? 'Calculando...' : 'Checkout Seguro' }}
+        </button>
       </div>
     </div>
   </aside>

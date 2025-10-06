@@ -43,7 +43,7 @@ watch(
 
         <div class="lg:col-span-2">
           <CartItem v-for="item in cartStore.items" :key="item.id"
-            :item="{ ...item, price: `$${(item.unit_price * item.quantity).toFixed(2)}` }"
+            :item="{ ...item, price: item.unit_price * item.quantity }"
             @update:quantity="updateItemQuantity" @remove="removeItem" />
 
           <div v-if="cartStore.items.length === 0" class="text-center text-gray-500 p-8 bg-white rounded-2xl shadow-sm">
