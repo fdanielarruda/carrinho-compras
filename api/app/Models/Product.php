@@ -12,6 +12,11 @@ class Product extends Model
     protected $fillable = [
         'name',
         'unit_price',
-        'image'
+        'image',
+        'categories'
+    ];
+
+    protected $casts = [
+        'categories' => 'array'
     ];
 }

@@ -23,7 +23,8 @@ class ProductService
             id: (int) $product->id,
             name: (string) $product->name,
             unit_price: (float) $product->unit_price,
-            image: (string) $product->image ?? null
+            image: (string) $product->image ?? null,
+            categories: (array) $product->categories ?? null
         ));
     }
 }

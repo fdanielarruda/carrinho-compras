@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('name', 255);
             $table->decimal('unit_price', 10, 2);
             $table->string('image')->nullable();
+            $table->json('categories')->nullable();
             $table->timestamps();
         });
     }
