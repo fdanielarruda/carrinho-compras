@@ -25,7 +25,7 @@ defineProps({
 
       <div class="flex justify-between items-center mt-4">
         <p class="text-lg font-semibold text-gray-900">
-          R$ {{ product.unit_price.toFixed(2) }}
+          R$ {{ Number(product.unit_price).toFixed(2) }}
         </p>
 
         <button title="Adicionar ao Carrinho"

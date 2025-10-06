@@ -1,5 +1,18 @@
 <script setup lang="ts">
-import { ShoppingCartIcon, MagnifyingGlassIcon } from '@heroicons/vue/24/outline'
+import { ShoppingCartIcon, MagnifyingGlassIcon } from '@heroicons/vue/24/outline';
+import { useProductStore } from '@/stores/productStore';
+import { ref, watch } from 'vue';
+
+const productStore = useProductStore();
+const localSearchTerm = ref(productStore.searchTerm);
+let searchTimeout: number | undefined = undefined;
+
+watch(localSearchTerm, (newTerm) => {
+  clearTimeout(searchTimeout);
+  searchTimeout = setTimeout(() => {
+    productStore.setSearchTerm(newTerm);
+  }, 300);
+});
 </script>
 
 <template>
@@ -8,7 +21,7 @@ import { ShoppingCartIcon, MagnifyingGlassIcon } from '@heroicons/vue/24/outline
 
       <div class="flex-grow pr-3 lg:pr-8">
         <div class="relative">
-          <input type="text" placeholder="Pesquisar..."
+          <input type="text" placeholder="Pesquisar..." v-model="localSearchTerm"
             class="w-full py-2 pl-10 pr-4 border border-gray-300 rounded-2xl focus:outline-none transition-shadow duration-150"
             style="border-color: #E6E9EE;" />
 
