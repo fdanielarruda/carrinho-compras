@@ -11,4 +11,8 @@ export interface CartItem extends Product {
 
 export interface CartState {
     items: CartItem[];
+    paymentMethod: number;
+    installments: number;
+    totalPrice: number | null;
+    isLoading: boolean;
 }

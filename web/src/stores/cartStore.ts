@@ -1,9 +1,15 @@
 import { defineStore } from 'pinia';
 import type { Product, CartState } from '@/types/Product';
+import axios from 'axios';
 
 export const useCartStore = defineStore('cart', {
+  persist: true,
   state: (): CartState => ({
     items: [],
+    paymentMethod: 1,
+    installments: 1,
+    totalPrice: null as number | null,
+    isLoading: false,
   }),
   getters: {
     totalItemsCount: (state) => {
@@ -44,6 +50,51 @@ export const useCartStore = defineStore('cart', {
     clearCart() {
       this.items = [];
       console.log('O carrinho foi completamente esvaziado.');
-    }
+    },
+
+    setPaymentOptions(paymentMethod: number, installments: number) {
+      this.paymentMethod = paymentMethod;
+      this.installments = installments;
+      this.calculateTotal();
+    },
+
+    async calculateTotal() {
+      if (this.items.length === 0) {
+        this.totalPrice = 0;
+        return;
+      }
+      
+      this.isLoading = true;
+      try {
+        const apiItems = this.items.map(item => ({
+          price: item.unit_price,
+          quantity: item.quantity,
+        }));
+
+        const payload = {
+          items: apiItems,
+          payment_method: this.paymentMethod,
+          installments: this.installments,
+        };
+
+        const API_BASE_URL = 'http://localhost:8000/api';
+        const response = await axios.post(`${API_BASE_URL}/cart-calculate`, payload);
+
+        this.totalPrice = response.data.total_value; 
+      } catch (error) {
+        console.error('Erro ao calcular total do carrinho:', error);
+        this.totalPrice = null;
+      } finally {
+        this.isLoading = false;
+      }
+    },
+
+    updateItemQuantity(id: number, newQuantity: number) {
+        const item = this.items.find(i => i.id === id);
+        if (item) {
+            item.quantity = newQuantity;
+        }
+        this.calculateTotal();
+    },
   },
 });

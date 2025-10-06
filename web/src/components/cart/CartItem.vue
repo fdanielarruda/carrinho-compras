@@ -6,9 +6,7 @@ interface Product {
   name: string;
   price: string;
   image: string;
-  alt: string;
   quantity: number;
-  inStock: boolean;
 }
 
 const props = defineProps<{
@@ -27,7 +25,7 @@ const updateQuantity = (newQuantity: number) => {
 <template>
   <div class="flex items-center p-4 bg-white rounded-2xl border border-gray-100 mb-4">
     <div class="flex-shrink-0 w-24 h-24 rounded-xl overflow-hidden mr-4">
-      <img :src="item.image" :alt="item.alt" class="w-full h-full object-cover" />
+      <img :src="item.image" class="w-full h-full object-cover" />
     </div>
 
     <div class="flex-grow flex flex-col sm:flex-row sm:justify-between sm:items-center">
