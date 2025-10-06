@@ -18,13 +18,10 @@ class ProductController extends Controller
     {
         $dto = ProductListDTO::fromRequest($request->validated());
 
-        $products_paginator = $this->service->list($dto);
+        $products = $this->service->list($dto);
 
         return response()->json([
-            'total' => $products_paginator->total(),
-            'current_page' => $products_paginator->currentPage(),
-            'last_page' => $products_paginator->lastPage(),
-            'products' => $products_paginator->items(),
+            'products' => $products,
         ]);
     }
 }

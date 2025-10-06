@@ -22,9 +22,7 @@ class ProductIndexRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'search' => ['nullable', 'string'],
-            'page' => ['nullable', 'integer', 'min:1'],
-            'per_page' => ['nullable', 'integer', 'min:1']
+            'search' => ['nullable', 'string']
         ];
     }
 }
