@@ -6,7 +6,7 @@ import { ShoppingCartIcon, MagnifyingGlassIcon } from '@heroicons/vue/24/outline
   <header class="bg-gray-50 sticky top-0 z-50">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-between">
 
-      <div class="flex-grow hidden lg:block pr-8">
+      <div class="flex-grow pr-3 lg:pr-8">
         <div class="relative">
           <input type="text" placeholder="Pesquisar..."
             class="w-full py-2 pl-10 pr-4 border border-gray-300 rounded-2xl focus:outline-none transition-shadow duration-150"

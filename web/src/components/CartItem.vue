@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { defineProps, defineEmits } from 'vue';
-import { MinusIcon, PlusIcon, TrashIcon } from '@heroicons/vue/24/outline';
+import { MinusIcon, PlusIcon } from '@heroicons/vue/24/outline'; // Removendo TrashIcon pois não está mais sendo usado na forma como estava.
 
 interface Product {
   id: number;
@@ -34,7 +34,7 @@ const updateQuantity = (newQuantity: number) => {
     <div class="flex-grow flex flex-col sm:flex-row sm:justify-between sm:items-center">
       <div class="flex flex-col justify-center mb-2 sm:mb-0">
         <h3 class="text-lg font-semibold text-gray-800">{{ item.name }}</h3>
-        
+
         <p class="text-lg font-semibold text-gray-900 mt-1 sm:hidden">{{ item.price }}</p>
 
         <div class="flex items-center border border-gray-300 rounded-xl overflow-hidden mt-2 w-fit">
@@ -54,12 +54,12 @@ const updateQuantity = (newQuantity: number) => {
         </div>
       </div>
 
-      <div class="flex items-center space-x-6 mt-2 sm:mt-0">
+      <div class="flex flex-col items-center space-y-2 mt-2 sm:mt-0">
         <p class="text-xl font-semibold text-gray-900 hidden sm:block">{{ item.price }}</p>
 
         <button @click="$emit('remove', item.id)"
-          class="p-2 text-sm font-medium text-white bg-red-500 rounded-xl hover:bg-red-600 transition-colors duration-150 w-10 h-10 flex items-center justify-center flex-shrink-0">
-          <TrashIcon class="h-6 w-6" />
+          class="px-3 py-1 text-sm font-medium text-white bg-red-500 rounded-lg hover:bg-red-600 transition-colors duration-150 flex items-center justify-center flex-shrink-0 w-fit">
+          Remover
         </button>
       </div>
     </div>
