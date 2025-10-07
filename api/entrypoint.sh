@@ -24,6 +24,9 @@ echo "Banco de dados pronto!"
 echo "Gerando variáveis básicas..."
 cp .env.example .env
 
+echo "Gerando chave de aplicação..."
+php artisan key:generate
+
 echo "Executando migrações..."
 php artisan migrate --force
 

@@ -12,9 +12,9 @@ class ProductSeeder extends Seeder
      */
     public function run(): void
     {
-        //if (DB::table('products')->count() > 0) {
-        //    return;
-        //}
+        if (DB::table('products')->count() > 0) {
+            return;
+        }
 
         $defaultImage = "https://cdn.pixabay.com/photo/2017/09/23/04/02/dice-2777809_1280.jpg";
         $now = now();
@@ -143,10 +143,14 @@ class ProductSeeder extends Seeder
         ];
 
         $preparedData = array_map(function ($product) use ($now) {
-            $product['categories'] = json_encode($product['categories']);
-            $product['created_at'] = $now;
-            $product['updated_at'] = $now;
-            return $product;
+            return [
+                'image' => $product['image'],
+                'name' => $product['name'],
+                'unit_price' => $product['unit_price'],
+                'categories' => json_encode($product['categories']),
+                'created_at' => $now,
+                'updated_at' => $now,
+            ];
         }, $productsData);
 
         DB::table('products')->insert($preparedData);
