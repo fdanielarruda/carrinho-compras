@@ -48,7 +48,7 @@ Certifique-se de ter instalado:
 
 ### 🧾 2. Configurar Variáveis de Ambiente
 
-Crie um arquivo `.env` na raiz do projeto com o seguinte conteúdo:
+Crie um arquivo `.env` na RAIZ DO SEU PROJETO com o seguinte conteúdo:
 
 ```env
 # Variáveis do Banco de Dados
@@ -58,7 +58,7 @@ DB_PASSWORD=secret
 APP_DB_PORT=3307
 
 # Variáveis das Aplicações
-APP_API_PORT=8000
+APP_API_PORT=8001
 APP_WEB_PORT=5173
 ```
 
@@ -75,7 +75,7 @@ docker compose up --build -d
 Isso iniciará todos os serviços:
 
 * MySQL em `localhost:3307`
-* API (Laravel) em `http://localhost:8000`
+* API (Laravel) em `http://localhost:8001`
 * Frontend (Vue.js) em `http://localhost:5173`
 
 ---
