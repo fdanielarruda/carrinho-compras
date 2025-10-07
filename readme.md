@@ -48,7 +48,7 @@ Certifique-se de ter instalado:
 
 ### 🧾 2. Configurar Variáveis de Ambiente
 
-Crie um arquivo `.env` na RAIZ DO SEU PROJETO com o seguinte conteúdo:
+Crie um arquivo `.env` na RAIZ DO SEU PROJETO com o seguinte conteúdo, aqui estão algumas sugestões de preenchimento:
 
 ```env
 # Variáveis do Banco de Dados
@@ -61,6 +61,10 @@ APP_DB_PORT=3307
 APP_API_PORT=8001
 APP_WEB_PORT=5173
 ```
+
+Você pode criar uma cópia do arquivo ```.env.example``` que está disponível.
+
+Lembre-se de verificar se não há conflito com nenhuma outra porta em execução.
 
 ---
 
