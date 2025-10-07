@@ -12,17 +12,11 @@ const props = defineProps<{
 
 const emit = defineEmits(['update:payment']);
 
-const selectedPayment = ref('Pix');
-const selectedInstallment = ref(1);
-
-computed(() => {
-  return selectedPayment.value === 'Pix' ? 1 : 2;
-});
+const selectedPayment = ref<string | null>(null);
+const selectedInstallment = ref<number | null>(null);
 
 const isDiscountActive = computed(() => {
-  return props.subtotal > 0
-    && (selectedPayment.value === 'Pix' || (selectedPayment.value === 'Credit Card')
-    && selectedInstallment.value === 1);
+  return props.subtotal > 0 && ((selectedPayment.value === 'Pix') || (selectedPayment.value === 'Credit Card' && selectedInstallment.value === 1));
 });
 
 watch([selectedPayment, selectedInstallment], ([newPayment, newInstallment]) => {
@@ -31,6 +25,10 @@ watch([selectedPayment, selectedInstallment], ([newPayment, newInstallment]) => 
 
   emit('update:payment', methodId, installmentValue);
 }, { immediate: true });
+
+const isPaymentSelected = computed(() => {
+  return selectedPayment.value !== null && selectedInstallment.value !== null;
+});
 
 </script>
 
@@ -63,14 +61,21 @@ watch([selectedPayment, selectedInstallment], ([newPayment, newInstallment]) => 
 
             <span class="text-2xl font-bold text-gray-900">
               <span v-if="isLoading">...</span>
-              <span v-else>R$ {{ formatCurrencyBRL(totalPrice) }}</span>
+              <span v-else>
+                <span v-if="totalPrice !== null">
+                  R$ {{ formatCurrencyBRL(totalPrice) }}
+                </span>
+                <span v-else>
+                  R$ {{ formatCurrencyBRL(subtotal) }}
+                </span>
+              </span>
             </span>
           </div>
         </div>
 
         <button
           class="w-full py-3 bg-blue-600 text-white font-bold rounded-xl flex items-center justify-center hover:bg-blue-700 transition-colors duration-150"
-          :disabled="isLoading || totalPrice === null">
+          :disabled="isLoading || totalPrice === null || !isPaymentSelected">
           <LockClosedIcon class="w-5 h-5 mr-2" />
           {{ isLoading ? 'Calculando...' : 'Checkout Seguro' }}
         </button>
