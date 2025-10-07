@@ -49,7 +49,13 @@ export const useCartStore = defineStore('cart', {
 
     clearCart() {
       this.items = [];
+      this.totalPrice = null;
       console.log('O carrinho foi completamente esvaziado.');
+    },
+
+    async finishCheckout() {
+      this.clearCart();
+      console.log('Finalização de checkout concluída e carrinho limpo.');
     },
 
     setPaymentOptions(paymentMethod: number, installments: number) {
@@ -63,7 +69,7 @@ export const useCartStore = defineStore('cart', {
         this.totalPrice = 0;
         return;
       }
-      
+
       this.isLoading = true;
       try {
         const apiItems = this.items.map(item => ({
@@ -79,7 +85,7 @@ export const useCartStore = defineStore('cart', {
 
         const response = await api.post('/cart-calculate', payload);
 
-        this.totalPrice = response.data.total_value; 
+        this.totalPrice = response.data.total_value;
       } catch (error) {
         console.error('Erro ao calcular total do carrinho:', error);
         this.totalPrice = null;
@@ -89,11 +95,11 @@ export const useCartStore = defineStore('cart', {
     },
 
     updateItemQuantity(id: number, newQuantity: number) {
-        const item = this.items.find(i => i.id === id);
-        if (item) {
-            item.quantity = newQuantity;
-        }
-        this.calculateTotal();
+      const item = this.items.find(i => i.id === id);
+      if (item) {
+        item.quantity = newQuantity;
+      }
+      this.calculateTotal();
     },
   },
 });
