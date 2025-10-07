@@ -19,7 +19,6 @@ const toggleCategoryFilter = () => {
 
 const handleFilterSelection = (filterValues: string[]) => {
   productStore.setCategoryFilters(filterValues);
-  console.log('Filtros de Categoria Aplicados:', filterValues);
   showCategoryFilter.value = false;
 };
 
