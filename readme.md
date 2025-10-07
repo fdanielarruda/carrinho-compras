@@ -112,7 +112,7 @@ docker exec -it carrinho_compras_api bash
 ---
 
 ### ✅ 5. Testes
-Há testes automatizados disponíveis para o backend. Para executá-los, acesse o container da API e rode:
+Há testes automatizados disponíveis para o backend. Para executá-los, execute o seguinte comando:
 ```bash
-php artisan test
+docker compose exec api composer test
 ```

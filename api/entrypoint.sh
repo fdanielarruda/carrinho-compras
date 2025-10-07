@@ -7,7 +7,7 @@ chmod -R 775 /var/www/html/storage
 chmod -R 775 /var/www/html/bootstrap/cache
 
 echo "Instalando dependências do Composer..."
-composer install --no-dev --prefer-dist --optimize-autoloader
+composer install --prefer-dist --optimize-autoloader
 
 echo "Aguardando o serviço de banco de dados..."
 timeout=30
@@ -20,6 +20,9 @@ while ! nc -z db 3306; do
   fi
 done
 echo "Banco de dados pronto!"
+
+echo "Gerando variáveis básicas..."
+cp .env.example .env
 
 echo "Executando migrações..."
 php artisan migrate --force
